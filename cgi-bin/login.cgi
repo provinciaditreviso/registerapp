@@ -152,83 +152,77 @@ if result == 2:
 	if reply:
 		print "<center>%s </BR></BR></center>" % (reply)
 
-if ($result == 5) {
+if result == 5:
    print """
-  <h1 style=\"text-align: center;\">$h1Login</h1>";
-  """
+  	<h1 style=\"text-align: center;\">%s</h1>";
+	""" % (H1LOGIN)
 
-if ($result == 2 || $result == 5) {
+if result == 2 or result == 5:
+	print """
+	  <form name=\"form1\" method=\"post\" action=\"%s\">
+	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
+	  <input type=\"hidden\" name=\"uamip\" value=\"%s\">
+	  <input type=\"hidden\" name=\"uamport\" value=\"%s\">
+	  <input type=\"hidden\" name=\"userurl\" value=\"%s\">
+	  <center>
+	  <table border=\"0\" cellpadding=\"5\" cellspacing=\"0\" style=\"width: 217px;\">
+	    <tbody>
+	      <tr>
+	        <td align=\"right\">%s:</td>
+	        <td><input style=\"font-family: Arial\" type=\"text\" name=\"UserName\" size=\"20\" maxlength=\"128\"></td>
+	      </tr>
+	      <tr>
+	        <td align=\"right\">%s:</td>
+	        <td><input style=\"font-family: Arial\" type=\"password\" name=\"Password\" size=\"20\" maxlength=\"128\"></td>
+		      </tr>
+	      <tr>
+	        <td align=\"center\" colspan=\"2\" height=\"23\"><input type=\"submit\" name=\"button\" value=\"Login\" onClick=\"javascript:popUp('%s?res=popup1&uamip=%s&uamport=%s')\"></td> 
+	      </tr>
+	    </tbody>
+	  </table>
+	  </center>
+	  </form>""" % (LOGINPATH,challenge,uamip,uamport,userurl,CENTERUSERNAME,CENTERPASSWORD,LOGINPATH,uamip,uamport)
+
+if result == 1:
+  print "<h1>%s</h1>" % (H1LOGGEDIN)
+
+  if reply: 
+     print "<center>%s </br></br></center>" % (reply)
+
   print """
-  <form name=\"form1\" method=\"post\" action=\"$loginpath\">
-  <input type=\"hidden\" name=\"challenge\" value=\"$challenge\">
-  <input type=\"hidden\" name=\"uamip\" value=\"$uamip\">
-  <input type=\"hidden\" name=\"uamport\" value=\"$uamport\">
-  <input type=\"hidden\" name=\"userurl\" value=\"$userurl\">
   <center>
-  <table border=\"0\" cellpadding=\"5\" cellspacing=\"0\" style=\"width: 217px;\">
-    <tbody>
-      <tr>
-        <td align=\"right\">$centerUsername:</td>
-        <td><input style=\"font-family: Arial\" type=\"text\" name=\"UserName\" size=\"20\" maxlength=\"128\"></td>
-      </tr>
-      <tr>
-        <td align=\"right\">$centerPassword:</td>
-        <td><input style=\"font-family: Arial\" type=\"password\" name=\"Password\" size=\"20\" maxlength=\"128\"></td>
-      </tr>
-      <tr>
-        <td align=\"center\" colspan=\"2\" height=\"23\"><input type=\"submit\" name=\"button\" value=\"Login\" onClick=\"javascript:popUp('$loginpath?res=popup1&uamip=$uamip&uamport=$uamport')\"></td> 
-      </tr>
-    </tbody>
-  </table>
+    <a href=\"http://%s:%s/logoff\">Logout</a>
   </center>
-  </form>"""
-
-if ($result == 1) {
-  echo "
-  <h1 style=\"text-align: center;\">$h1Loggedin</h1>";
-
-  if ($reply) { 
-      echo "<center> $reply </br></br></center>";
-  }
-
-  echo "
-  <center>
-    <a href=\"http://$uamip:$uamport/logoff\">Logout</a>
-  </center>
-</body>
-</html>";
+	""" % (uamip,uamport)
 }
 
-if (($result == 4) || ($result == 12)) {
-  echo "
-  <h1 style=\"text-align: center;\">$h1Loggedin</h1>
-  <center>
-    <a href=\"http://$uamip:$uamport/logoff\">$centerLogout</a>
-  </center>
-</body>
-</html>";
-}
+if result == 4 or result == 12:
+	print """
+	<h1>%s</h1>
+	<center>
+	   <a href=\"http://%s:%s/logoff\">%s</a>
+	</center>
+	""" % (H1LOGGEDIN,uamip,uamport,CENTERLOGOUT)
 
 
-if ($result == 11) {
-  echo "
-  <h1 style=\"text-align: center;\">$h1Loggingin</h1>
-  <center>
-    $centerPleasewait
-  </center>
-</body>
-</html>";
-}
+if result == 11:
+	print """
+	  <h1>%s</h1>
+	  <center>
+	    %s
+	  </center>
+	""" % (H1LOGGINGIN,CENTERPLEASEWAIT)
 
 
-if (($result == 3) || ($result == 13)) {
-  echo "
-  <h1 style=\"text-align: center;\">$h1Loggedout</h1>
-  <center>
-    <a href=\"http://$uamip:$uamport/prelogin\">$centerLogin</a>
-  </center>
-</body>
-</html>";
-}
 
-exit(0);	
+if result == 3 or result == 13:
+	  print """
+	  <h1 style=\"text-align: center;\">%s</h1>
+	  <center>
+	    <a href=\"http://%s:%s/prelogin\">%s</a>
+	  </center>
+		""" % (H1LOGGEDOUT,uamip,uamport,CENTERLOGIN)
+
+print FOOTER
+
+sys.exit(0)	
