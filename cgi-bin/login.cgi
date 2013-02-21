@@ -27,14 +27,14 @@ CENTERDAEMON = "Login deve essere effettuato attraverso il servizio "+CHILLISPOT
 CENTERENCRYPTED = "Login deve essere effettuato su una connessione cifrata"
 
 
-HEADER = ""
-FOOTER = ""
+HEADER = open('login/header_c.html').read()
+FOOTER = open('login/footer_c.html').read()
 
 
 if os.getenv('HTTPS','') != 'on':
 	print "Content-Type: text-html\n\n"
 	print HEADER
-	print "<h1>%s</h1> <center>%s</center>" % ( H1FAILED, CENTERENCRYPTED )
+	print "<div class=\"page-header\"><h1>%s</h1></div><p class=\"lead\">%s</p>" % ( H1FAILED, CENTERENCRYPTED )
 	print FOOTER
 	print """<!--
 	<?xml version=\"1.0\" encoding=\"UTF-8\"?>
@@ -127,7 +127,7 @@ if button == 'Login':
 
 switch = { 'success': 1, 'failed': 2, 'logoff': 3, 'already': 4, 'notyet': 5, 'smartclient': 6, 'popup1': 11, 'popup2': 12, 'popup3': 13 }
 if switch.has_key(res):
-	result = switch(res)
+	result = switch[res]
 else:
 	result = 0
 
@@ -135,92 +135,77 @@ if result == 0:
 	print "Content-type: text/html\n\n"
 	print HEADER
 	print """
-		<h1>%s</h1>
-		<center>
+		<div class=\"page-header\"<h1>%s</h1></div>
+		<p class=\"lead\">
 			%s
-		</center>
+		</p>
 	"""
 	print FOOTER
 	print "</html>"	
 	sys.exit(0)
 
-print HEADER
-print BODY
+print open('login/header_m.html').read() % (LOGINPATH,uamip,uamport,result,LOGINPATH,uamip,uamport,userurl,redirurl,timeleft,userurl,redirurl,timeleft,result)
 
 if result == 2:
-	print "<h1 style=\"text-align: center;\">%s</h1>" % (H1FAILED)
+	print "<div class=\"page-header\"><h1>%s</h1></div>" % (H1FAILED)
 	if reply:
-		print "<center>%s </BR></BR></center>" % (reply)
+		print "<p class=\"lead\">%s</p>" % (reply)
 
 if result == 5:
    print """
-  	<h1 style=\"text-align: center;\">%s</h1>";
+  	<div class=\"page-header\"><h1>%s</h1></div>";
 	""" % (H1LOGIN)
 
 if result == 2 or result == 5:
 	print """
-	  <form name=\"form1\" method=\"post\" action=\"%s\">
+	  <form class ="form-signin" name=\"form1\" method=\"post\" action=\"%s\">
+	  <h2 class=\"form-signin-heading\">Autenticazione:</h2>
 	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
 	  <input type=\"hidden\" name=\"uamip\" value=\"%s\">
 	  <input type=\"hidden\" name=\"uamport\" value=\"%s\">
 	  <input type=\"hidden\" name=\"userurl\" value=\"%s\">
-	  <center>
-	  <table border=\"0\" cellpadding=\"5\" cellspacing=\"0\" style=\"width: 217px;\">
-	    <tbody>
-	      <tr>
-	        <td align=\"right\">%s:</td>
-	        <td><input style=\"font-family: Arial\" type=\"text\" name=\"UserName\" size=\"20\" maxlength=\"128\"></td>
-	      </tr>
-	      <tr>
-	        <td align=\"right\">%s:</td>
-	        <td><input style=\"font-family: Arial\" type=\"password\" name=\"Password\" size=\"20\" maxlength=\"128\"></td>
-		      </tr>
-	      <tr>
-	        <td align=\"center\" colspan=\"2\" height=\"23\"><input type=\"submit\" name=\"button\" value=\"Login\" onClick=\"javascript:popUp('%s?res=popup1&uamip=%s&uamport=%s')\"></td> 
-	      </tr>
-	    </tbody>
-	  </table>
-	  </center>
+	  <input class=\"input-block-level\" type=\"text\" name=\"UserName\" placeholder=\"%s\" size=\"20\" maxlength=\"128\" />
+	  <input class=\"input-block-level\" type=\"password\" name=\"Password\" placeholder=\"%s\" size=\"20\" maxlength=\"128\"></td>
+	  <button class=\"btn btn-large btn-primary\" type=\"submit\" name=\"button\" onClick=\"javascript:popUp('%s?res=popup1&uamip=%s&uamport=%s')\">Login</button> 
 	  </form>""" % (LOGINPATH,challenge,uamip,uamport,userurl,CENTERUSERNAME,CENTERPASSWORD,LOGINPATH,uamip,uamport)
 
 if result == 1:
-  print "<h1>%s</h1>" % (H1LOGGEDIN)
+  print "<div class=\"page-header\"><h1>%s</h1></div>" % (H1LOGGEDIN)
 
   if reply: 
-     print "<center>%s </br></br></center>" % (reply)
+     print "<p class=\"lead\">%s</p>" % (reply)
 
   print """
-  <center>
+  <p>
     <a href=\"http://%s:%s/logoff\">Logout</a>
-  </center>
+  </p>
 	""" % (uamip,uamport)
-}
 
 if result == 4 or result == 12:
 	print """
-	<h1>%s</h1>
-	<center>
+	<div class=\"page-header\"><h1>%s</h1></div>
+	<p class=\"lead\">
 	   <a href=\"http://%s:%s/logoff\">%s</a>
-	</center>
+	</p>
 	""" % (H1LOGGEDIN,uamip,uamport,CENTERLOGOUT)
 
 
 if result == 11:
 	print """
-	  <h1>%s</h1>
-	  <center>
+	  <div class=\"page-header\"><h1>%s</h1></div>
+	  <p class=\"lead\">
 	    %s
-	  </center>
+	  </p>
 	""" % (H1LOGGINGIN,CENTERPLEASEWAIT)
 
 
 
 if result == 3 or result == 13:
 	  print """
-	  <h1 style=\"text-align: center;\">%s</h1>
-	  <center>
+	  <div class=\"page-header\"><h1>%s</h1></div>
+	  <p class=\"lead\">
 	    <a href=\"http://%s:%s/prelogin\">%s</a>
-	  </center>
+	  </p>
 		""" % (H1LOGGEDOUT,uamip,uamport,CENTERLOGIN)
 
 print FOOTER
