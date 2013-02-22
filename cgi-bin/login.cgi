@@ -8,7 +8,7 @@ from binascii import hexlify, unhexlify
 
 
 # Set of Global Variables
-UAMSECRET = "bababababababababaab"
+UAMSECRET = "1234567890"
 USERPASSWORD = 1
 LOGINPATH = os.getenv('SCRIPT_NAME','/cgi-bin/login.cgi')
 CHILLISPOT = "Hotspot"
@@ -31,7 +31,7 @@ HEADER = open('login/header_c.html').read()
 FOOTER = open('login/footer_c.html').read()
 
 
-if os.getenv('HTTPS','') != 'on':
+if True == False and os.getenv('HTTPS','') != 'on':
 	print "Content-Type: text-html\n\n"
 	print HEADER
 	print "<div class=\"page-header\"><h1>%s</h1></div><p class=\"lead\">%s</p>" % ( H1FAILED, CENTERENCRYPTED )
@@ -53,31 +53,39 @@ if os.getenv('HTTPS','') != 'on':
 
 form = cgi.FieldStorage()
 if form.has_key('UserName'):
-	username = form['UserName']
+	username = form['UserName'].value
 if form.has_key('Password'):
-	password = form['Password']
+	password = form['Password'].value
 if form.has_key('challenge'):
-	challenge = form['challenge']
+	challenge = form['challenge'].value
 if form.has_key('button'):
-	button = form['button']
+	button = form['button'].value
+else:
+	button = ''
 if form.has_key('logout'):
-	logout = form['logout']
+	logout = form['logout'].value
 if form.has_key('prelogin'):
-	prelogin = form['prelogin']
+	prelogin = form['prelogin'].value
 if form.has_key('res'):
-	res = form['res']
+	res = form['res'].value
 if form.has_key('uamip'):
-	uamip = form['uamip']
+	uamip = form['uamip'].value
 if form.has_key('uamport'):
-	uamport = form['uamport']
+	uamport = form['uamport'].value
 if form.has_key('userurl'):
-	userurl = form['userurl']
+	userurl = form['userurl'].value
+else:
+	userurl = ''
 if form.has_key('timeleft'):
-	timeleft = form['timeleft']
+	timeleft = form['timeleft'].value
+else:
+	timeleft = ''
 if form.has_key('redirurl'):
-	redirurl = form['redirurl']
+	redirurl = form['redirurl'].value
+else:
+	redirurl = ''
 if form.has_key('reply'):
-	reply = form['reply']
+	reply = form['reply'].value
 
 if button == 'Login':
 	hexchal = unhexlify(challenge)
@@ -126,6 +134,7 @@ if button == 'Login':
 
 
 switch = { 'success': 1, 'failed': 2, 'logoff': 3, 'already': 4, 'notyet': 5, 'smartclient': 6, 'popup1': 11, 'popup2': 12, 'popup3': 13 }
+
 if switch.has_key(res):
 	result = switch[res]
 else:
@@ -139,12 +148,14 @@ if result == 0:
 		<p class=\"lead\">
 			%s
 		</p>
-	"""
+	""" % (TITLE,CENTERDAEMON)
 	print FOOTER
 	print "</html>"	
+	print str(res)
 	sys.exit(0)
 
-print open('login/header_m.html').read() % (LOGINPATH,uamip,uamport,result,LOGINPATH,uamip,uamport,userurl,redirurl,timeleft,userurl,redirurl,timeleft,result)
+print open('login/header_m.html').read().format(LOGINPATH,uamip,uamport,result,LOGINPATH,uamip,uamport,userurl,redirurl,timeleft,userurl,redirurl,timeleft,result)
+
 
 if result == 2:
 	print "<div class=\"page-header\"><h1>%s</h1></div>" % (H1FAILED)
@@ -153,12 +164,12 @@ if result == 2:
 
 if result == 5:
    print """
-  	<div class=\"page-header\"><h1>%s</h1></div>";
+  	<div class=\"page-header\"><h1>%s</h1></div>
 	""" % (H1LOGIN)
 
 if result == 2 or result == 5:
 	print """
-	  <form class ="form-signin" name=\"form1\" method=\"post\" action=\"%s\">
+	  <p><form class ="form-signin" name=\"form1\" method=\"post\" action=\"%s\">
 	  <h2 class=\"form-signin-heading\">Autenticazione:</h2>
 	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
 	  <input type=\"hidden\" name=\"uamip\" value=\"%s\">
@@ -167,7 +178,7 @@ if result == 2 or result == 5:
 	  <input class=\"input-block-level\" type=\"text\" name=\"UserName\" placeholder=\"%s\" size=\"20\" maxlength=\"128\" />
 	  <input class=\"input-block-level\" type=\"password\" name=\"Password\" placeholder=\"%s\" size=\"20\" maxlength=\"128\"></td>
 	  <button class=\"btn btn-large btn-primary\" type=\"submit\" name=\"button\" onClick=\"javascript:popUp('%s?res=popup1&uamip=%s&uamport=%s')\">Login</button> 
-	  </form>""" % (LOGINPATH,challenge,uamip,uamport,userurl,CENTERUSERNAME,CENTERPASSWORD,LOGINPATH,uamip,uamport)
+	  </form></p>""" % (LOGINPATH,challenge,uamip,uamport,userurl,CENTERUSERNAME,CENTERPASSWORD,LOGINPATH,uamip,uamport)
 
 if result == 1:
   print "<div class=\"page-header\"><h1>%s</h1></div>" % (H1LOGGEDIN)
