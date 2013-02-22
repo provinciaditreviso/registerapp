@@ -27,8 +27,8 @@ CENTERDAEMON = "Login deve essere effettuato attraverso il servizio "+CHILLISPOT
 CENTERENCRYPTED = "Login deve essere effettuato su una connessione cifrata"
 
 
-HEADER = open('login/header_c.html').read()
-FOOTER = open('login/footer_c.html').read()
+HEADER = open('/var/www/login/header_c.html').read()
+FOOTER = open('/var/www/login/footer_c.html').read()
 
 
 if True == False and os.getenv('HTTPS','') != 'on':
@@ -154,7 +154,7 @@ if result == 0:
 	print str(res)
 	sys.exit(0)
 
-print open('login/header_m.html').read().format(LOGINPATH,uamip,uamport,result,LOGINPATH,uamip,uamport,userurl,redirurl,timeleft,userurl,redirurl,timeleft,result)
+print open('/var/www/login/header_m.html').read().format(LOGINPATH,uamip,uamport,result,LOGINPATH,uamip,uamport,userurl,redirurl,timeleft,userurl,redirurl,timeleft,result)
 
 
 if result == 2:
