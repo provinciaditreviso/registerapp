@@ -97,8 +97,6 @@ if button == 'Login':
 	response = md5("\0" + password + newchal).hexdigest()
 	newpwd = password[:32]
 	pappassword =  hexlify(''.join(chr(ord(a) ^ ord(b)) for a,b in zip(newpwd,newchal)))
-	print challenge
-	print pappassword+"\n\n"
 	
 	if len(UAMSECRET)>0 and USERPASSWORD == 1:
 		
@@ -107,6 +105,8 @@ if button == 'Login':
 		url = "http://"+uamip+":"+uamport+"/logon?username="+username+"&response="+response+"&userurl="+userurl+"\">"
 	
 	print "Content-type: text/html\n\n"
+	print challenge
+	print pappassword+"\n\n"
 	print """
 		<html>
 		<head>
