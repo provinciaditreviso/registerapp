@@ -91,7 +91,7 @@ if form.has_key('reply'):
 if button == 'Login':
 	hexchal = unhexlify(challenge)
 	if len(UAMSECRET) > 0:
-		newchal = md5(hexchal+uamsecret).digest()
+		newchal = md5(hexchal + UAMSECRET).digest()
 	else:
 		newchal = hexchal
 	response = md5("\0" + password + newchal).hexdigest()
