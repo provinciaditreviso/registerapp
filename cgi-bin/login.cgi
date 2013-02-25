@@ -31,7 +31,7 @@ HEADER = open('/var/www/login/header_c.html').read()
 FOOTER = open('/var/www/login/footer_c.html').read()
 
 
-if True == False and os.getenv('HTTPS','') != 'on':
+if os.getenv('HTTPS','') != 'on':
 	print "Content-Type: text-html\n\n"
 	print HEADER
 	print "<div class=\"page-header\"><h1>%s</h1></div><p class=\"lead\">%s</p>" % ( H1FAILED, CENTERENCRYPTED )
@@ -171,8 +171,10 @@ if result == 2 or result == 5:
 	print """
 	  <p><form class ="form-signin" name=\"form1\" method=\"post\" action=\"%s\">
 	  <h2 class=\"form-signin-heading\">Autenticazione:</h2>
-	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
 	  <input type=\"hidden\" name=\"uamip\" value=\"%s\">
+	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
+	  <input type=\"hidden\" name=\"button\" value=\"Login\">
+	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
 	  <input type=\"hidden\" name=\"uamport\" value=\"%s\">
 	  <input type=\"hidden\" name=\"userurl\" value=\"%s\">
 	  <input class=\"input-block-level\" type=\"text\" name=\"UserName\" placeholder=\"%s\" size=\"20\" maxlength=\"128\" />
