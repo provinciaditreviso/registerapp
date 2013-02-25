@@ -223,5 +223,5 @@ if result == 3 or result == 13:
 		""" % (H1LOGGEDOUT,uamip,uamport,CENTERLOGIN)
 
 print FOOTER
-print "<html>"
+print "</html>"
 sys.exit(0)	
