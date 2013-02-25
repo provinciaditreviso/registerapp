@@ -143,8 +143,8 @@ if switch.has_key(res):
 else:
 	result = 0
 
+print "Content-type: text/html\n\n"
 if result == 0:
-	print "Content-type: text/html\n\n"
 	print HEADER
 	print """
 		<div class=\"page-header\"<h1>%s</h1></div>
