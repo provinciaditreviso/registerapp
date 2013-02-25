@@ -3,6 +3,7 @@
 import os
 import sys
 import cgi
+from hashlib import md5
 from struct import pack
 from binascii import hexlify, unhexlify
 
@@ -31,7 +32,7 @@ HEADER = open('/var/www/login/header_c.html').read()
 FOOTER = open('/var/www/login/footer_c.html').read()
 
 
-if os.getenv('HTTPS','') != 'on':
+if False and os.getenv('HTTPS','') != 'on':
 	print "Content-Type: text-html\n\n"
 	print HEADER
 	print "<div class=\"page-header\"><h1>%s</h1></div><p class=\"lead\">%s</p>" % ( H1FAILED, CENTERENCRYPTED )
