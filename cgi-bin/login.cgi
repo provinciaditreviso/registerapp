@@ -7,6 +7,9 @@ from hashlib import md5
 from struct import pack
 from binascii import hexlify, unhexlify
 
+import cgitb
+cgitb.enable()
+
 
 # Set of Global Variables
 UAMSECRET = "1234567890"
