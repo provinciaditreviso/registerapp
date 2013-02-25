@@ -97,6 +97,8 @@ if button == 'Login':
 	response = md5("\0" + password + newchal).hexdigest()
 	newpwd = password[:32]
 	pappassword =  hexlify(''.join(chr(ord(a) ^ ord(b)) for a,b in zip(newpwd,newchal)))
+	print challenge
+	print pappassword+"\n\n"
 	
 	if len(UAMSECRET)>0 and USERPASSWORD == 1:
 		
@@ -131,7 +133,7 @@ if button == 'Login':
 		</html>
 	""" % (url, CENTERPLEASEWAIT,url)	
 
-	system.exit(0)
+	sys.exit(0)
 
 
 switch = { 'success': 1, 'failed': 2, 'logoff': 3, 'already': 4, 'notyet': 5, 'smartclient': 6, 'popup1': 11, 'popup2': 12, 'popup3': 13 }
