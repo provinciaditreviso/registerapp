@@ -96,7 +96,7 @@ if button == 'Login':
 		newchal = hexchal
 	response = md5("\0" + password + newchal).hexdigest()
 	newpwd = password[:32]
-	pappassword =  "".join(hexlify(newpwd ^ newchal))
+	pappassword =  hexlify(''.join(chr(ord(a) ^ ord(b)) for a,b in zip(newpwd,newchal)))
 	
 	if len(UAMSECRET)>0 and USERPASSWORD == 1:
 		
