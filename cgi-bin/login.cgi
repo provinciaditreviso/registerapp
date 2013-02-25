@@ -105,9 +105,9 @@ if button == 'Login':
 	
 	if len(UAMSECRET)>0 and USERPASSWORD == 1:
 		
-		url = "http://"+uamip+":"+uamport+"/logon?username="+username+"&password="+pappassword+"\">"
+		url = "http://"+uamip+":"+uamport+"/logon?username="+username+"&password="+pappassword
 	else:
-		url = "http://"+uamip+":"+uamport+"/logon?username="+username+"&response="+response+"&userurl="+userurl+"\">"
+		url = "http://"+uamip+":"+uamport+"/logon?username="+username+"&response="+response+"&userurl="+userurl
 	
 	print "Content-type: text/html\n\n"
 	print challenge
