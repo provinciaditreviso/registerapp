@@ -90,6 +90,8 @@ else:
 	redirurl = ''
 if form.has_key('reply'):
 	reply = form['reply'].value
+else:
+	reply = ''
 
 if button == 'Login':
 	hexchal = unhexlify(challenge)
@@ -165,7 +167,7 @@ print open('/var/www/login/header_m.html').read().format(LOGINPATH,uamip,uamport
 
 if result == 2:
 	print "<div class=\"page-header\"><h1>%s</h1></div>" % (H1FAILED)
-	if reply:
+	if reply == '':
 		print "<p class=\"lead\">%s</p>" % (reply)
 
 if result == 5:
