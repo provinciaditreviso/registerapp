@@ -171,15 +171,13 @@ if result == 2 or result == 5:
 	print """
 	  <p><form class ="form-signin" name=\"form1\" method=\"post\" action=\"%s\">
 	  <h2 class=\"form-signin-heading\">Autenticazione:</h2>
+	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
 	  <input type=\"hidden\" name=\"uamip\" value=\"%s\">
-	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
-	  <input type=\"hidden\" name=\"button\" value=\"Login\">
-	  <input type=\"hidden\" name=\"challenge\" value=\"%s\">
 	  <input type=\"hidden\" name=\"uamport\" value=\"%s\">
 	  <input type=\"hidden\" name=\"userurl\" value=\"%s\">
 	  <input class=\"input-block-level\" type=\"text\" name=\"UserName\" placeholder=\"%s\" size=\"20\" maxlength=\"128\" />
 	  <input class=\"input-block-level\" type=\"password\" name=\"Password\" placeholder=\"%s\" size=\"20\" maxlength=\"128\"></td>
-	  <button class=\"btn btn-large btn-primary\" type=\"submit\" name=\"button\" onClick=\"javascript:popUp('%s?res=popup1&uamip=%s&uamport=%s')\">Login</button> 
+	  <button class=\"btn btn-large btn-primary\" type=\"submit\" name=\"button\" value=\"Login\" onClick=\"javascript:popUp('%s?res=popup1&uamip=%s&uamport=%s')\">Login</button> 
 	  </form></p>""" % (LOGINPATH,challenge,uamip,uamport,userurl,CENTERUSERNAME,CENTERPASSWORD,LOGINPATH,uamip,uamport)
 
 if result == 1:
