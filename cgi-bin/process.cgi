@@ -45,7 +45,7 @@ def change(number):
 		c.execute("SELECT 1 FROM users WHERE number = ?",(number,))
 		if len(c.fetchall()) == 1:
 			password = pwgen(8)
-			c.execute("UPDATE users SET password = ? WHERE number = ?",(password,number))
+			c.execute("UPDATE users SET password = ? WHERE number = ?",(sha1(password).hexdigest(),number))
 			conn.commit()
 			sms = "To: "+number+"\n\n Servizio WIFI Provincia di Treviso - Nuova password per l'utente "+number+" Password: "+password+"\n"
 	                fdsms, fsms = mkstemp(prefix="sms-",dir=SPOOLDIR)
