@@ -1,0 +1,6 @@
+
+exec python {
+	wait = yes
+	program = "/usr/local/bin/authen.py -u %{mschap:User-Name} -p %{User-Password}"
+	output_pairs = reply
+}
