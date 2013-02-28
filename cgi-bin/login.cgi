@@ -111,8 +111,6 @@ if button == 'Login':
 		url = "http://"+uamip+":"+uamport+"/logon?username="+username+"&response="+response+"&userurl="+userurl
 	
 	print "Content-type: text/html\n\n"
-	print challenge
-	print pappassword+"\n\n"
 	print """
 		<html>
 		<head>
@@ -160,7 +158,6 @@ if result == 0:
 	""" % (TITLE,CENTERDAEMON)
 	print FOOTER
 	print "</html>"	
-	print str(res)
 	sys.exit(0)
 
 print open('/var/www/login/header_m.html').read().format(LOGINPATH,uamip,uamport,result,LOGINPATH,uamip,uamport,userurl,redirurl,timeleft,userurl,redirurl,timeleft,result)
