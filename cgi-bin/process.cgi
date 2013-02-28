@@ -8,6 +8,8 @@ from datetime import datetime
 from hashlib import sha1
 from tempfile import mkstemp
 import os
+import cgitb
+cgitb.enable()
 
 SPOOLDIR="/tmp/"
 #SPOOLDIR="/var/spool/sms/outgoing/"

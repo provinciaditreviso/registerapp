@@ -10,7 +10,8 @@ def authenticate(user,password):
 	conn = sqlite3.connect('/var/www/cgi-bin/users.db')
 	c = conn.cursor()
 	c.execute('SELECT 1 FROM users WHERE number = ? and password = ?', (user,sha1(password).hexdigest()))
-	if c.rowcount == 1:
+	result = c.fetchone()
+	if result == (1,):
 		return True
 	else:
 		return False
