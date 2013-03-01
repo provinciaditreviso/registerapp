@@ -35,6 +35,7 @@ def register(number):
 		fdsms, fsms = mkstemp(prefix="sms-",dir=SPOOLDIR)
 		outf=os.fdopen(fdsms,'wt')
 		outf.write(sms)
+		os.chmod(fsms,"0660")
 		outf.close()
 		return 0
 	else:
@@ -54,6 +55,7 @@ def change(number):
 	                outf=os.fdopen(fdsms,'wt')
 	                outf.write(sms)
 	                outf.close()
+			os.chmod(fsms,"0660")
 			return 0
 		else:
 			return 1
